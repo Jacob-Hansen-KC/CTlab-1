@@ -1,1 +1,5 @@
-#Read Me for this file
+This file holds the Python code for Phase 3
+
+The no cython versions of the code are Phase_Three.py and Phase_Three_No_Plot.py
+
+Phase_Three_Cython_Import is the code that brings in the .pyd modules created using cython
