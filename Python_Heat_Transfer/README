@@ -1,1 +1,5 @@
-#Read me for this section
+This file holds the Python code for Phase 1
+
+The no cython versions of the code are Heat_Transfer.py and Heat_Transfer_No_Plot.py
+
+Heat_Transfer_Cython_Import is the code that brings in the .pyd modules created using cython
