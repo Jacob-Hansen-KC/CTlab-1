@@ -1,1 +1,7 @@
-#Read Me for this folder
+This folder contains the codes that are cythonized to create a c version of the code.
+
+The files are turned into c files using setup.py then turned into python functions using the terminal command below.
+
+python .venv/Scripts/CTLABS/C_Zone/Setup.py build_ext --inplace
+
+The numbers indicate the increasing levels of Cythonization
