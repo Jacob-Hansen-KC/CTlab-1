@@ -1,10 +1,10 @@
 import time
-from Heat_Transfer_Func import Heat_Transfer_Func as heat_transfer  # Assuming heat_transfer is a module you have created
+from Heat_Transfer_Numba_2 import Heat_Transfer_Func as heat_transfer  # Assuming heat_transfer is a module you have created
 t = time.time()
 import numpy as np
 
 # --- Differential Evolution Setup ---
-low = 260
+low = 280
 high = 310
 dim = 4
 NP = np.linspace(low, high, dim*4)
@@ -20,6 +20,12 @@ a = np.zeros(dim)
 b = np.zeros(dim)
 c = np.zeros(dim)
 s = 10
+# x1 = np.array([10, 35, 16, 35],dtype=int)
+# y1 = np.array([10, 40, 45, 16],dtype=int)
+# targets = np.array([150, 225, 225, 300],dtype=int)
+x1 = np.array([4, 17, 15, 7],dtype=int)
+y1 = np.array([4, 14, 8, 15],dtype=int)
+targets = np.array([277, 283, 283, 280],dtype=int)
 count = 0
 cost2 = 1
 cost3 = 1
@@ -47,14 +53,17 @@ while cost2 > 0.01 or cost3 > 0.05:
         y = np.maximum(y, 0)
         # Run the heat transfer code for the new value
         T1 = heat_transfer(y)
-        K1 = [T1[5,5], T1[18,15], T1[16,9], T1[8,16]]
-        # Calculate value of the cost function for each set
-        new = (K1[0]-277)**2 + (K1[1]-283)**2 + (K1[2]-280)**2 + (K1[3]-280)**2
-        old = (NPstore[0, x[k]]-277)**2 + (NPstore[1, x[k]]-283)**2 + (NPstore[2, x[k]]-280)**2 + (NPstore[3, x[k]]-280)**2
+        K1 = [T1[x1[0], y1[0]], T1[x1[1], y1[1]], T1[x1[2], y1[2]], T1[x1[3], y1[3]]]
+        # Define target values
+        # Calculate 'new'
+        new = np.sum((np.array(K1) - targets) ** 2)
+        # Calculate 'old'
+        old = np.sum((NPstore[:, x[k]] - targets) ** 2)
         if new < old:
             NP[:, x[k]] = y
             NPstore[:, x[k]] = K1
-    cost2 = np.mean((NPstore[0, :]-277)**2 + (NPstore[1, :]-283)**2 + (NPstore[2, :]-280)**2 + (NPstore[3, :]-280)**2)
+    # Calculate 'cost2'
+    cost2 = np.mean(np.sum((NPstore - targets[:, None]) ** 2, axis=0))
     cost3 = np.mean(np.std(NP, axis=1))
     print(cost2)
 
@@ -65,3 +74,4 @@ print("Result:", result2)
 elapsed = time.time() - t
 print(elapsed)
 print(count)
+print(elapsed/count, "seconds per iteration")
