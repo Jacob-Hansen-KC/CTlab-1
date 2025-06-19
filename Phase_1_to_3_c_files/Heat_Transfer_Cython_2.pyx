@@ -14,16 +14,16 @@ def Heat_Transfer_Cython(bdry1):
     alpha = a / 1000**2  # m^2/s
 
     # area matrix, length, time parameters
-    s = 20
+    s = 50
     dx = 0.01
     dy = 0.01
     dt = 0.1
-
+    value=1
     # initial temperature and heat source
     T2 = np.ones((s+2, s+2)) * 273.15  # K
     T1 = np.zeros((s+2, s+2))
     S = np.zeros((s+2, s+2))
-    S[11, 2] = 10
+    S[24, 24] = 100
     k = 0
 
     # boundary conditions: left, bottom, right, top
@@ -34,7 +34,7 @@ def Heat_Transfer_Cython(bdry1):
     T2[-1, :] = bdry[3]
 
     # main loop
-    while k < 1200:
+    while 0.005 < value:
         T1 = T2.copy()
         # Explicit Euler scheme
         T2[1:-1, 1:-1] = (
@@ -51,6 +51,7 @@ def Heat_Transfer_Cython(bdry1):
         T2[0, :] = bdry[1]
         T2[:, -1] = bdry[2]
         T2[-1, :] = bdry[3]
-    return T2
+        value = np.abs(np.mean(T2 - T1))
+    return k
     elapsed = time.time() - t
 
