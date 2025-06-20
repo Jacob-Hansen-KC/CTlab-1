@@ -1,7 +1,10 @@
-This folder contains the codes that are cythonized to create a c version of the code.
+This folder contains the codes from projects 1-3 that are cythonized to create a c version of the script then put into modules to be run by other scripts.
 
-The files are turned into c files using setup.py then turned into python functions using the terminal command below.
+The .pyx scripts are turned into c files using setup.py then turned into python functions using the terminal command below.
 
-python .venv/Scripts/CTLABS/C_Zone/Setup.py build_ext --inplace
+python -/Path- build_ext --inplace
 
 The numbers indicate the increasing levels of Cythonization
+Level 1 involved defining all variable as c variables
+Level 2 involved defining the number of dimention of the c arrays and implimenting some key words that effect the compiling
+Level 3 involved changing functions to be more c friendly 
