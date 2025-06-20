@@ -1,5 +1,5 @@
 This file holds the Python code for Phase 2
 
-The no cython versions of the code are Diff_Evo.py and Diff_Evo_No_Plot.py
+The no cython versions of the code are Diff_Evo.py and Diff_Evo_No_Plot.py and do not use cython to improve proformance.
 
-Diff_Evo_Cython_Import is the code that brings in the .pyd modules created using cython
+Diff_Evo_Cython_Import is the code that brings in the .pyd modules created using cython.
