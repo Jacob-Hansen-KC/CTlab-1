@@ -1,5 +1,7 @@
 This file holds the Python code for Phase 3
 
+Phase 3 combines the Heat Transfer and differential evolution projects to determine the boundary conditions required to give four point in the heat transfer solution space a specific temperature. 
+
 The no cython versions of the code are Phase_Three.py and Phase_Three_No_Plot.py and
 
 Phase_Three_Cython_Import is the code that brings in the .pyd modules created using cython
