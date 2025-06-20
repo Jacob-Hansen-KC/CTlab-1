@@ -1,1 +1,5 @@
-This folder contains files using Python with Numba
+This folder contains files using Python that have been improved using Numba's compilation tools-https://numba.pydata.org/
+
+Heat_Transfer_Numba uses the jit compiler to achieve improved run times.
+
+Heat_Transfer_2 and Heat_Transfer_Numba_Import are used to compile out of the script and create the module Heat_Transfer_Numba_2.cp313-win_amd64.pyd
