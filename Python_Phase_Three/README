@@ -1,5 +1,7 @@
 This file holds the Python code for Phase 3
 
-The no cython versions of the code are Phase_Three.py and Phase_Three_No_Plot.py
+The no cython versions of the code are Phase_Three.py and Phase_Three_No_Plot.py and
 
 Phase_Three_Cython_Import is the code that brings in the .pyd modules created using cython
+
+Any of the Heat_Transfer scripts/modules can be used with any of the Phase_Three scripts but the .pyd modules need to be changed to use a different Heat_Transfer using the setup.py script
