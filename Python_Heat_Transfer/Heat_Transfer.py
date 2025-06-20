@@ -1,4 +1,3 @@
-# To install packages, run these commands in your terminal, not in a Python script:
 import time
 t = time.time()
 import numpy as np
