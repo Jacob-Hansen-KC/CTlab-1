@@ -1,3 +1,4 @@
 This Folder contains the matlab codes created for phase 1 through phase 3 of the initial CTlab projects
 
 The codes are either base version, Gifless, or No Plot.
+The base versions of the code use the gif function to save the iterated plots as a gif - https://www.mathworks.com/matlabcentral/fileexchange/63239-gif
