@@ -18,7 +18,7 @@ dx=0.01; dy=0.01;
 Lx=0:0.01:(s-1)*dx; Ly=0:0.01:(s-1)*dy;
 [X,Y]=meshgrid(Lx,Ly);
 %delta_t (sec)
-dt=0.1;
+dt=0.25;
 
 %% define initial and redefine Temperature, and heat source term
 T2=ones(s+2)*273.15; %K
@@ -27,16 +27,17 @@ T1=zeros(s+2);
 
 %S=rand(s+2)*30;
 S=zeros(s+2);%define S(heat source) array
-S(25,25)=100;
+% S(25,25)=100;
+%S(12,3)=10;
 k=0;
 value=1;
 %% boundary conditions
 %edges left bottom right top
-bdry=[500 300 200 700];
+bdry=[261.72604151  12.67105524 363.71225925 209.37369109];
 T2(:,1)=bdry(1); T2(1,:)=bdry(2); T2(:,end)=bdry(3); T2(end,:)=bdry(4);  
 % k<1200 &
 %% Define Loop
-while value>0.005
+while value>0.0005
     T1=T2; % set the 2 temp plots equal
        i=2:P-1; %sweep x axis
         j=2:Q-1; %sweep y axis
@@ -67,8 +68,8 @@ c.Label.String='Temperature (K)'; clim([min(bdry), max(bdry)]), xlabel('X (m)');
 % surf(Lx,Ly,T2(2:end-1,2:end-1))
 title(k*dt,"(Sec)")
 toc
-% hold on
-%   x=[0.05-0.02 0.15-0.02 0.09-0.02 0.16-0.02];
-%     y=[0.05-0.02 0.18-0.02 0.16-0.02 0.06];
-%     plot(x, y, 'k.', 'LineWidth', 2, 'MarkerSize', 20)
-% colormap jet
+hold on
+  x=([10, 17, 38, 35]-1)/100;
+    y=([10, 38, 20, 43]-1)/100;
+    plot(x, y, 'k.', 'LineWidth', 2, 'MarkerSize', 20)
+colormap jet
