@@ -1,0 +1,40 @@
+For Cython
+Open Ubuntu
+Step 1
+%%setup enviroment
+python3 -m venv ~/cyenv
+source ~/cyenv/bin/activate
+source /opt/intel/oneapi/setvars.sh
+Step 2
+%%Run Setup3.py in terminal
+cd /mnt/c/Users/Jacob/Python/Scripts/CTlab/
+python3 Phase_1_to_3_c_files/Setup3.py
+python3 Phase_1_to_3_c_files/Setup3.py build_ext --inplace
+%% Run the module in the import code
+python3 Python_Heat_Transfer/Heat_Transfer_Cython_Import.py
+
+
+
+%%%%%%%%%%%%%%%% FORTRAN %%%%%%%%%%%%%%%%%%%%%
+!Windows
+!gfortran -O3 -g -fbacktrace -march=native -fdefault-real-8 -fdefault-double-8 C:\Users\Jacob\Python\heat_equation_Fastest.f90 -o heat_equation_Fastest.exe
+!.\heat_equation_Fastest.exe
+!ifx /O3 /Qzero /real-size:64 /arch:CORE-AVX2 /double-size:64 C:\Users\Jacob\Python\heat_equation_Fastest.f90 -o C:\Users\Jacob\Python\heat_equation_Fastest_I.exe
+!./heat_equation_Fastest_I.exe
+!Linux
+!gfortran -O3 -g -fbacktrace -march=native -fdefault-real-8 -fdefault-double-8 heat_equation_Fastest.f90 -o heat_equation_Fastest.ELF
+!./heat_equation_Fastest.ELF
+!ifx -O3 -zero -real-size 64 -double-size 64 -march=native heat_equation_Fastest.f90 -o heat_equation_Fastest_I.ELF
+!./heat_equation_Fastest_I.ELF
+!ifx -O3 -zero -funroll-loops -align array64byte -qopt-zmm-usage=high -real-size 64 -double-size 64 -march=native heat_equation_Fastest.f90 -o heat_equation_Fastest_I.ELF
+
+%%%%%%%%%%%%%%% c %%%%%%%%%%%%%%%%%%%%%%%%% cd /mnt/c/Users/Jacob/Python
+//Windows
+//gcc -O3 -std=c99 -march=native -mtune=native -g heat_equation_c.c -o heat_equation_c.exe
+// .\heat_equation_c.exe
+
+//Linux
+//gcc -O3 -std=c99 -march=native -mtune=native -g heat_equation_c.c -o heat_equation_c.ELF
+// ./heat_equation_c.ELF
+// icx -O3 -xHost -flto heat_equation_c.c -o heat_equation_c_I.ELF
+// ./heat_equation_c_I.ELF
