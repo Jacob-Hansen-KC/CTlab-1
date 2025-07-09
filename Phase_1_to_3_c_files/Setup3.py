@@ -16,7 +16,7 @@ extensions = [
 ]
 
 setup(
-    ext_modules=cythonize(extensions,annotate=True),
+    ext_modules=cythonize(extensions),
 )
 # use this command in the terminal to compile the c files into .pyd files
 #export CC=gcc
