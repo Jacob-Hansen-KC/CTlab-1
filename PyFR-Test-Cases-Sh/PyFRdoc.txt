@@ -1,0 +1,61 @@
+PyFR Commands/Workflow Document
+Required Programs
+    https://pyfr.readthedocs.io/en/latest/installation.html
+    This is pretty much accurate. I would recommend Scotch as a partitioner as 
+    Metis does not have an acctual distribution
+
+    The modules required from the cluster are
+    module load cuda/12.8
+    module load compiler/gcc/14.2
+    module load openmpi/5.0
+    module load conda/latest
+    This export was required for me to get cuda to work
+    export LD_LIBRARY_PATH=/usr/lib64:$LD_LIBRARY_PATH
+
+    The cluster commands to run
+    #!/bin/bash
+    #SBATCH --job-name=#Name#
+    #SBATCH --partition=sixhour
+    #SBATCH --gres=gpu:1        #Required for runs that use GPUs
+    #SBATCH --nodes=4           #Should equal the number of partitions
+    #SBATCH --cpus-per-task=12  #not sure if this needed for GPU runs
+    #SBATCH --mem=64g           #Same
+    #SBATCH --time=0-03:00:00
+    #SBATCH --output=TayG_%j.log
+    #SBATCH --constraint=nvidia #Might also be needed to get the correct brand of GPU
+
+
+The first step in doing a PyFR simulation is preparing the mesh and .ini file
+1. In the command directory,
+    Unzip compressed .msh.xz files using
+        unxz #FileName#.msh.xz
+    Now the file can be converted ro the .pyfrm file type
+        pyfr import #FileIn#.msh #FileOut#.pyfrm
+    this file can be partitioned.
+        pyfr partition # #FileIn#.pyfrm outfolder
+            This processes is simplified. see below for personal version
+            may need -e quad:3 -e tri:2 for mixed element meshes
+All these steps can be preformed before summitting a job to the cluster
+
+Alt Partitioning process
+1.pyfr import #File#.msh #File#.pyfrm #import msh file
+2.LD_PRELOAD=/home/j221h043/local/scotch-v7.0.8/build/lib/libscotcherr.so:/home/j221h043/local/scotch-v7.0.8/build/lib/libscotch.so pyfr partition -p scotch 2 #File#.pyfrm .
+3.python3 -c "import h5py; f = h5py.File('#File#.pyfrm', 'r'); print(list(f.keys()))" #check Partition
+
+once the mesh and .ini files are prepared the simulation can be run. 
+Runscript
+One node
+    CUDA/GPU
+    pyfr -p run -b cuda #Filein#.pyfrm #FileIn#.ini
+    openmp
+
+Multinode
+where -n # indicateds the number of nodes. this number needs to match the number of requisitioned nodes and partitions
+    mpiexec -n 4 --bind-to core --map-by socket --mca coll ^hcoll --mca pml ob1 pyfr run --backend openmp #FileIn#.pyfrm #FileIn#.ini
+    mpiexec -n 4 --bind-to core --map-by socket --mca coll ^hcoll --mca pml ob1 pyfr -p run -b cuda #FileIn#.pyfrm #FileIn#.ini
+
+
+Post Processing
+pyfr export #file#.pyfrm #file#-#time#.pyfrs #file#-#time#.vtu
+
+Then this file can be exported to a computer with Paraview
