@@ -1,0 +1,19 @@
+starting
+compiling
+running
+          40          10
+          20          30
+ 
+          30          40
+          10          20
+ 
+          20          30
+          40          10
+ 
+          10          20
+          30          40
+ 
+          40          10
+          20          30
+ 
+IPL WARN> IPL_init_numa_nodes: can not define numa node num
