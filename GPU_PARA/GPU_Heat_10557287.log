@@ -1,0 +1,12 @@
+starting
+compiling
+ Total time for 1 runs:     1.576131105422974       seconds
+ Final k value:        10000
+
+Lmod is automatically replacing "compiler/nvc/.24.7" with "compiler/intel/25".
+
+
+Inactive Modules:
+  1) nvhpc-openmpi3/24.7
+
+slurmstepd: error: *** JOB 10557287 ON r31r20n01 CANCELLED AT 2025-07-30T08:00:09 ***
